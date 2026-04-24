@@ -529,8 +529,8 @@ function renderAdvice(section) {
 }
 
 function applyCardImages(pillarHangul, pillarTypeKorean) {
-  const imagePath = pillarHangul ? `/images/${pillarHangul}.png` : "";
-  const videoPath = pillarHangul ? `/videos/${pillarHangul}.mp4` : "";
+  const imagePath = pillarHangul ? `./images/${pillarHangul}.png` : "";
+  const videoPath = pillarHangul ? `./videos/${pillarHangul}.mp4` : "";
   const cardImage = document.getElementById("detail-card-image");
   const modalImage = document.getElementById("detail-modal-image");
   const modalVideo = document.getElementById("detail-modal-video");
@@ -662,7 +662,7 @@ function buildDetailUrl(typeKey, pillar, pillarContext, resultContext) {
     }
   });
 
-  return `/pillar.html?${params.toString()}`;
+  return `./pillar.html?${params.toString()}`;
 }
 
 function buildResultUrl(resultContext) {
@@ -675,7 +675,7 @@ function buildResultUrl(resultContext) {
   });
 
   const query = params.toString();
-  return query ? `/result.html?${query}` : "/result.html";
+  return query ? `./result.html?${query}` : "./result.html";
 }
 
 function setupBackNavigation(resultContext) {

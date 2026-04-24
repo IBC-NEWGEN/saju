@@ -1,94 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="ko">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>사주 분석 결과 - 어센디아 SAJU</title>
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet"/>
-    
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-surface-variant": "#64655d",
-                        "surface-container-low": "#fcf9f3",
-                        "on-secondary-container": "#a70515",
-                        "tertiary-dim": "#585858",
-                        "secondary-dim": "#b1111b",
-                        "secondary": "#c22225",
-                        "on-tertiary": "#ffffff",
-                        "on-error-container": "#752121",
-                        "error": "#a64542",
-                        "on-secondary-fixed": "#85000d",
-                        "inverse-primary": "#ffffff",
-                        "primary-dim": "#535252",
-                        "error-dim": "#4e0309",
-                        "outline": "#818178",
-                        "secondary-fixed-dim": "#ffc7c1",
-                        "on-tertiary-fixed-variant": "#666666",
-                        "surface-container-high": "#f0eee5",
-                        "secondary-container": "#ffdad6",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-fixed-variant": "#5c5b5b",
-                        "error-container": "#fe8983",
-                        "primary-fixed": "#e5e2e1",
-                        "on-tertiary-container": "#5b5c5c",
-                        "inverse-surface": "#0e0e0c",
-                        "on-primary": "#faf7f6",
-                        "tertiary": "#646464",
-                        "on-background": "#373831",
-                        "on-primary-container": "#525151",
-                        "surface": "#fffcf7",
-                        "primary-fixed-dim": "#d6d4d3",
-                        "on-secondary": "#ffffff",
-                        "surface-container": "#f6f4ec",
-                        "inverse-on-surface": "#9e9d98",
-                        "on-secondary-fixed-variant": "#b5161e",
-                        "secondary-fixed": "#ffdad6",
-                        "primary-container": "#e5e2e1",
-                        "tertiary-fixed": "#f4f3f3",
-                        "outline-variant": "#babab0",
-                        "primary": "#5f5e5e",
-                        "tertiary-container": "#f4f3f3",
-                        "surface-dim": "#e4e3d7",
-                        "surface-variant": "#eae9de",
-                        "tertiary-fixed-dim": "#e6e5e5",
-                        "surface-bright": "#fffcf7",
-                        "on-surface": "#373831",
-                        "on-error": "#ffffff",
-                        "surface-container-highest": "#eae9de",
-                        "background": "#fffcf7",
-                        "on-tertiary-fixed": "#494a4a",
-                        "on-primary-fixed": "#403f3f",
-                        "surface-tint": "#5f5e5e",
-                        // Elemental Colors
-                        "element-wood": "#e8f5e9", // Light Green/Jade
-                        "element-fire": "#ffebee", // Light Red/Pink
-                        "element-earth": "#fff8e1", // Light Yellow/Beige
-                        "element-metal": "#fafafa", // White/Silver
-                        "element-water": "#f5f5f5"  // Light Grey/Black tint
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    fontFamily: {
-                        "headline": ["Noto Serif KR", "serif"],
-                        "body": ["Manrope", "sans-serif"],
-                        "label": ["Manrope", "sans-serif"]
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
+    <link href="./tailwind.css" rel="stylesheet"/>
+<style>
         body { font-family: 'Manrope', 'Noto Serif KR', sans-serif; }
         h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Noto Serif KR', serif; }
     </style>
@@ -103,7 +22,7 @@
     <header class="fixed top-0 w-full z-50 bg-[#fffcf7]">
         <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
             <div class="flex items-center gap-4">
-                <button type="button" onclick="window.location.href='/main.html'" class="material-symbols-outlined text-primary cursor-pointer hover:text-[#373831] transition-colors duration-300">arrow_back</button>
+                <button type="button" onclick="window.location.href='./main.html'" class="material-symbols-outlined text-primary cursor-pointer hover:text-[#373831] transition-colors duration-300">arrow_back</button>
             </div>
             <div class="text-2xl font-serif text-[#373831] font-headline">어센디아 SAJU</div>
             <div class="flex items-center gap-4 text-[#5f5e5e]">
@@ -248,6 +167,9 @@
             <span class="font-headline text-[10px] font-semibold tracking-widest">내 정보</span>
         </div>
     </nav>
-    <script type="module" src="/src/saju-result.js"></script>
+    <script type="module" src="./src/saju-result.js"></script>
 </body>
 </html>
+
+
+

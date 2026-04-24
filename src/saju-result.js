@@ -1,4 +1,6 @@
-﻿const nameEl = document.getElementById("result-name");
+﻿import { buildManseResponse } from "./manse.js";
+
+const nameEl = document.getElementById("result-name");
 const subtitleEl = document.getElementById("result-subtitle");
 
 const seasonalSummaryTextEl = document.getElementById("result-seasonal-summary-text");
@@ -169,7 +171,7 @@ function applyPillarImages() {
       return;
     }
 
-    const imagePath = `/images/${pillar}.png`;
+    const imagePath = `./images/${pillar}.png`;
     const probe = new Image();
 
     probe.onload = () => {
@@ -234,7 +236,7 @@ function applyPillarVideos() {
       videoEl.dataset.ready = "false";
       videoEl.removeAttribute("src");
     };
-    videoEl.src = `/videos/${pillar}.mp4`;
+    videoEl.src = `./videos/${pillar}.mp4`;
     videoEl.load();
 
     card.onmouseenter = () => {
@@ -325,7 +327,7 @@ function updatePillarNavigation() {
         }
       });
 
-      targetUrl = `/pillar.html?${query.toString()}`;
+      targetUrl = `./pillar.html?${query.toString()}`;
     }
 
     cardEl.dataset.targetUrl = targetUrl;
@@ -367,18 +369,11 @@ async function loadResult() {
   }
 
   try {
-    const response = await fetch(
-      `/api/manse?birthDate=${encodeURIComponent(params.birthDate)}&calendarType=${encodeURIComponent(
-        params.calendarType
-      )}&timeBranch=${encodeURIComponent(params.timeBranch)}`
-    );
-    const data = await response.json();
-
-    if (!response.ok || !data.ok) {
-      throw new Error(data.error || "만세력 계산 API 호출에 실패했습니다.");
-    }
-
-    const result = data.result;
+    const result = buildManseResponse({
+      birthDate: params.birthDate,
+      calendarType: params.calendarType,
+      timeBranch: params.timeBranch
+    });
     applyPillars(result.pillars);
     updateSeasonalSummary(result.pillars);
     applyElementCounts(result.elements);
@@ -406,3 +401,4 @@ async function loadResult() {
 bindPillarNavigation();
 updateSeasonalSummaryFromCurrentPillars();
 loadResult();
+

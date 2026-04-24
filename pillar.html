@@ -1,55 +1,29 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Eul-sa (乙巳) Day Pillar Analysis</title>
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface": "#fffcf7",
-                        "on-background": "#373831",
-                        "surface-container-low": "#fcf9f3",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container-highest": "#eae9de",
-                        "surface-variant": "#eae9de",
-                        "on-surface-variant": "#64655d",
-                        "primary": "#5f5e5e",
-                        "secondary": "#c22225",
-                        "secondary-container": "#ffdad6",
-                        "on-secondary-container": "#a70515",
-                        "outline-variant": "#babab0",
-                    },
-                    fontFamily: {
-                        "headline": ["'Noto Serif KR'", "serif"],
-                        "body": ["'Pretendard'", "sans-serif"],
-                    }
-                },
-            }
-        }
-    </script>
-    <style>
+    <link href="./tailwind.css" rel="stylesheet"/>
+<style>
         body {
-            background-color: theme('colors.surface');
-            color: theme('colors.on-background');
-            font-family: theme('fontFamily.body');
+            background-color: #fffcf7;
+            color: #373831;
+            font-family: 'Pretendard', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
         h1, h2, h3, h4, h5, h6, .display-text {
-            font-family: theme('fontFamily.headline');
+            font-family: 'Noto Serif KR', serif;
+        }
+        .font-body,
+        .font-label {
+            font-family: 'Pretendard', sans-serif;
         }
         /* 모달 페이드 효과를 위한 클래스 */
         .modal-enter { opacity: 0; pointer-events: none; }
@@ -65,7 +39,7 @@
             line-height: 1.15;
             letter-spacing: 0.01em;
             color: rgba(100, 101, 93, 0.95);
-            font-family: theme('fontFamily.body');
+            font-family: 'Pretendard', sans-serif;
         }
         .pillar-side-nav {
             position: fixed;
@@ -295,7 +269,7 @@
         </div>
     </div>
 
-    <script type="module" src="/src/day-pillar-detail.js"></script>
+    <script type="module" src="./src/day-pillar-detail.js"></script>
     <script>
         const modal = document.getElementById('cardModal');
         const modalImage = document.getElementById('detail-modal-image');
@@ -341,3 +315,6 @@
     </script>
 </body>
 </html>
+
+
+

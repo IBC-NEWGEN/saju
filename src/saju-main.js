@@ -31,6 +31,6 @@ if (form) {
     params.set("calendarType", calendarType);
     params.set("timeBranch", timeBranch);
 
-    window.location.href = `/result.html?${params.toString()}`;
+    window.location.href = `./result.html?${params.toString()}`;
   });
 }
