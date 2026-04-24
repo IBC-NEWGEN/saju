@@ -386,7 +386,7 @@ function renderSection1(section) {
     lines.forEach((line) => {
       const { lead, body } = splitLeadAndBody(line);
       const li = document.createElement("li");
-      li.className = "flex items-start gap-4";
+      li.className = "flex items-start gap-3 md:gap-4";
 
       const icon = document.createElement("span");
       icon.className =
@@ -395,7 +395,7 @@ function renderSection1(section) {
       icon.textContent = "fiber_manual_record";
 
       const text = document.createElement("span");
-      text.className = "break-keep";
+      text.className = "detail-point-text";
 
       if (lead) {
         const strong = document.createElement("strong");
@@ -448,11 +448,11 @@ function renderSection2(section) {
     const { lead, body } = splitLeadAndBody(line);
     const card = document.createElement("div");
     card.className =
-      "bg-surface-container-lowest rounded-[2rem] p-8 md:p-10 shadow-[0_10px_40px_rgb(0,0,0,0.03)] border border-outline-variant/10 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300";
+      "bg-surface-container-lowest rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[0_10px_40px_rgb(0,0,0,0.03)] border border-outline-variant/10 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300";
 
     const iconWrap = document.createElement("div");
     iconWrap.className =
-      "w-14 h-14 bg-surface-container-low text-secondary rounded-2xl flex items-center justify-center mb-6 border border-secondary/10";
+      "w-12 h-12 md:w-14 md:h-14 bg-surface-container-low text-secondary rounded-2xl flex items-center justify-center mb-5 md:mb-6 border border-secondary/10";
 
     const icon = document.createElement("span");
     icon.className = "material-symbols-outlined text-2xl";
@@ -463,7 +463,7 @@ function renderSection2(section) {
 
     const heading = document.createElement("h3");
     heading.className =
-      "display-text text-xl font-semibold text-on-background mb-3 tracking-wide";
+      "display-text text-lg md:text-xl font-semibold text-on-background mb-3 tracking-wide";
     heading.textContent = lead || `성향 포인트 ${index + 1}`;
 
     const cardTags = extractLegacyTags(line, 1);
@@ -475,7 +475,7 @@ function renderSection2(section) {
 
     const desc = document.createElement("p");
     desc.className =
-      "font-body text-on-surface-variant leading-loose font-light text-base break-keep";
+      "font-body text-on-surface-variant leading-[1.9] md:leading-loose font-light text-[15px] md:text-base break-keep";
     desc.textContent = body || line;
 
     card.appendChild(iconWrap);
@@ -501,15 +501,15 @@ function renderSection3(section) {
   lines.forEach((line) => {
     const { lead, body } = splitLeadAndBody(line);
     const block = document.createElement("div");
-    block.className = "border-l-[3px] border-secondary/40 pl-6 py-1";
+    block.className = "border-l-[3px] border-secondary/40 pl-4 md:pl-6 py-1";
 
     const heading = document.createElement("strong");
     heading.className =
-      "display-text text-on-background font-medium block mb-2 text-xl tracking-wide";
+      "display-text text-on-background font-medium block mb-2 text-lg md:text-xl tracking-wide";
     heading.textContent = lead || "핵심 포인트";
 
     const desc = document.createElement("p");
-    desc.className = "leading-loose break-keep";
+    desc.className = "leading-[1.9] md:leading-loose break-keep";
     desc.textContent = body || line;
 
     block.appendChild(heading);
@@ -525,7 +525,12 @@ function renderAdvice(section) {
     return;
   }
 
-  setText("detail-advice-text", `"${adviceText}"`);
+  const sentences = adviceText
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => normalizeText(sentence))
+    .filter(Boolean);
+  const formatted = sentences.length > 1 ? sentences.join("\n\n") : adviceText;
+  setText("detail-advice-text", `"${formatted}"`);
 }
 
 function applyCardImages(pillarHangul, pillarTypeKorean) {
@@ -755,6 +760,11 @@ function renderDetail(entry, typeKey, typeConfig) {
     : entry.pillarHangul
       ? `${typeConfig.korean} ${entry.pillarHangul}`
       : typeConfig.korean;
+  const headerLabel = entry.pillarHangul
+    ? `${entry.pillarHangul} ${typeConfig.korean}`
+    : typeConfig.korean;
+
+  setText("detail-header-title", headerLabel);
 
   setText(
     "detail-pillar-type-badge",
