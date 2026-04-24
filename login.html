@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>어센디아 SAJU - 로그인</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c22225",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#525151",
+                        "inverse-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#e6e5e5",
+                        "surface-container": "#f6f4ec",
+                        "on-secondary-fixed": "#85000d",
+                        "on-tertiary-fixed-variant": "#666666",
+                        "outline": "#818178",
+                        "error": "#a64542",
+                        "on-primary-fixed-variant": "#5c5b5b",
+                        "tertiary": "#646464",
+                        "on-error": "#ffffff",
+                        "on-surface": "#373831",
+                        "primary-fixed": "#e5e2e1",
+                        "on-error-container": "#752121",
+                        "outline-variant": "#babab0",
+                        "background": "#fffcf7",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#d6d4d3",
+                        "inverse-on-surface": "#9e9d98",
+                        "surface-container-highest": "#eae9de",
+                        "on-surface-variant": "#64655d",
+                        "surface-container-high": "#f0eee5",
+                        "surface-dim": "#e4e3d7",
+                        "secondary-fixed-dim": "#ffc7c1",
+                        "primary": "#5f5e5e",
+                        "on-primary": "#faf7f6",
+                        "on-background": "#373831",
+                        "inverse-surface": "#0e0e0c",
+                        "tertiary-container": "#f4f3f3",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-variant": "#eae9de",
+                        "surface-container-low": "#fcf9f3",
+                        "surface-tint": "#5f5e5e",
+                        "secondary-container": "#ffdad6",
+                        "on-secondary-container": "#a70515",
+                        "on-secondary-fixed-variant": "#b5161e",
+                        "on-primary-fixed": "#403f3f",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fffcf7",
+                        "tertiary-fixed": "#f4f3f3",
+                        "on-tertiary-fixed": "#494a4a",
+                        "tertiary-dim": "#585858",
+                        "error-container": "#fe8983",
+                        "surface": "#fffcf7",
+                        "on-tertiary-container": "#5b5c5c",
+                        "error-dim": "#4e0309",
+                        "primary-container": "#e5e2e1",
+                        "secondary-dim": "#b1111b",
+                        "primary-dim": "#535252"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "display": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-morphism {
+            background: rgba(255, 252, 247, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(186, 186, 176, 0.2);
+        }
+        .ink-gradient {
+            background: linear-gradient(to bottom, rgba(255, 252, 247, 0) 0%, rgba(255, 252, 247, 0.8) 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex items-center justify-center overflow-hidden">
+<!-- Background Layer: Ethereal Ink Wash -->
+<div class="fixed inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="Ethereal Korean ink wash painting showing misty mountains, a scholarly figure in traditional robes, and a small white rabbit under a willow tree" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFo16PQfchsHq2yh2CjN3YcglXjiNNxzB7EHwxvfbaOwsMFe1icsaUn3sWq6_e4zJPW6vV7lRtQzvguPLux9JGTbCazvnaIO-DA2KM4DuaHsd_A1sMVR7I6Y8p8ZwTMnz2Erx9fd3SGQwgmWOtgfJmYtEB7xBzR9FBhYd3fdDrBmVyGVL-UNb0STzgPL1e4iAg0W1foQzujq-YFh9QYQaLdzUFfbSW98gl0UG3MqssT48kunVUUM8v8EjRzfHVmnOh11-MmyFm1WEM"/>
+<div class="absolute inset-0 ink-gradient"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-[420px] px-6 py-12">
+<!-- Branding Header -->
+<div class="text-center mb-12">
+<div class="inline-flex items-center justify-center mb-3">
+<span class="font-headline text-3xl font-bold tracking-tight text-on-background">어센디아 SAJU</span>
+<div class="ml-2 w-6 h-6 bg-secondary flex items-center justify-center rounded-sm">
+<span class="text-[10px] text-on-secondary font-headline">誠</span>
+</div>
+</div>
+<p class="font-headline text-primary text-sm opacity-70 italic">당신의 운명을 그리는 묵향의 지혜</p>
+</div>
+<!-- Login Card -->
+<div class="glass-morphism rounded-xl p-8 shadow-[0px_20px_40px_rgba(55,56,49,0.06)]">
+<form action="#" class="space-y-5">
+<!-- ID/Email Input -->
+<div class="space-y-1.5">
+<label class="text-xs font-label uppercase tracking-widest text-primary ml-1">Identity</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-low/50 border-b border-outline-variant/30 px-0 py-3 focus:ring-0 focus:border-secondary transition-all font-display placeholder:text-outline-variant/60 outline-none text-on-surface" placeholder="아이디 또는 이메일" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-1.5">
+<label class="text-xs font-label uppercase tracking-widest text-primary ml-1">Secrecy</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-low/50 border-b border-outline-variant/30 px-0 py-3 focus:ring-0 focus:border-secondary transition-all font-display placeholder:text-outline-variant/60 outline-none text-on-surface" placeholder="비밀번호" type="password"/>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-on-background text-on-secondary py-4 rounded-md font-label font-bold tracking-widest hover:bg-primary transition-colors mt-4 flex items-center justify-center gap-2" type="submit">
+                    LOG IN
+                    <span class="material-symbols-outlined text-sm">east</span>
+</button>
+<!-- Divider -->
+<div class="relative py-4 flex items-center">
+<div class="flex-grow border-t border-outline-variant/20"></div>
+<span class="flex-shrink mx-4 text-[10px] font-label text-outline-variant tracking-tighter uppercase">Social Entrance</span>
+<div class="flex-grow border-t border-outline-variant/20"></div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 py-3 bg-[#FEE500]/80 hover:bg-[#FEE500] rounded-md transition-all group" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#3c1e1e]">chat_bubble</span>
+<span class="text-[11px] font-bold text-[#3c1e1e] font-label">카카오 로그인</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 bg-[#03C75A]/80 hover:bg-[#03C75A] rounded-md transition-all group" type="button">
+<span class="material-symbols-outlined text-[18px] text-white">check_circle</span>
+<span class="text-[11px] font-bold text-white font-label">네이버 로그인</span>
+</button>
+</div>
+</form>
+<!-- Footer Links -->
+<nav class="mt-8 flex justify-center items-center gap-4 text-[11px] font-label text-primary/70">
+<a class="hover:text-secondary transition-colors" href="#">아이디 찾기</a>
+<span class="w-[1px] h-2 bg-outline-variant/30"></span>
+<a class="hover:text-secondary transition-colors" href="#">비밀번호 찾기</a>
+<span class="w-[1px] h-2 bg-outline-variant/30"></span>
+<a class="hover:text-on-background font-bold transition-colors" href="#">회원가입</a>
+</nav>
+</div>
+<!-- Decorative Element -->
+<div class="mt-12 flex flex-col items-center opacity-40">
+<div class="h-16 w-[1px] bg-gradient-to-b from-primary to-transparent"></div>
+<p class="mt-4 text-[10px] tracking-[0.2em] font-label uppercase text-primary">Est. 2024 Ascendia</p>
+</div>
+</main>
+<!-- Visual Polish: Subtle Grain Overlay -->
+<div class="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-multiply">
+<svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<filter id="noiseFilter">
+<feturbulence basefrequency="0.65" numoctaves="3" stitchtiles="stitch" type="fractalNoise"></feturbulence>
+</filter>
+<rect filter="url(#noiseFilter)" height="100%" width="100%"></rect>
+</svg>
+</div>
+</body></html>

@@ -662,7 +662,7 @@ function buildDetailUrl(typeKey, pillar, pillarContext, resultContext) {
     }
   });
 
-  return `/dayPillar.html?${params.toString()}`;
+  return `/pillar.html?${params.toString()}`;
 }
 
 function buildResultUrl(resultContext) {

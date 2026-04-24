@@ -268,8 +268,9 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, "index.html"),
         main: resolve(__dirname, "main.html"),
+        login: resolve(__dirname, "login.html"),
         result: resolve(__dirname, "result.html"),
-        dayPillar: resolve(__dirname, "dayPillar.html")
+        pillar: resolve(__dirname, "pillar.html")
       }
     }
   }

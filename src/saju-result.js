@@ -325,7 +325,7 @@ function updatePillarNavigation() {
         }
       });
 
-      targetUrl = `/dayPillar.html?${query.toString()}`;
+      targetUrl = `/pillar.html?${query.toString()}`;
     }
 
     cardEl.dataset.targetUrl = targetUrl;
