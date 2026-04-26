@@ -17,6 +17,7 @@ const SECTION2_ICONS = [
 const PILLAR_TYPE_CONFIG = {
   day: {
     korean: "일주",
+    navLabel: "중년/배우자운",
     english: "DAY PILLAR",
     badgeTitle: "일주 (DAY PILLAR): 자아와 본질",
     badgeSubtitle: "나라는 사람의 성격과 삶을 대하는 핵심 태도",
@@ -26,6 +27,7 @@ const PILLAR_TYPE_CONFIG = {
   },
   month: {
     korean: "월주",
+    navLabel: "청년/직장운",
     english: "MONTH PILLAR",
     badgeTitle: "월주 (MONTH PILLAR): 사회와 환경",
     badgeSubtitle: "내가 발을 딛고 서 있는 직업과 사회적 무대",
@@ -35,6 +37,7 @@ const PILLAR_TYPE_CONFIG = {
   },
   year: {
     korean: "년주",
+    navLabel: "초년/부모운",
     english: "YEAR PILLAR",
     badgeTitle: "년주 (YEAR PILLAR): 뿌리와 근본",
     badgeSubtitle: "나의 태생과 조상의 기운이 담긴 시작점",
@@ -44,6 +47,7 @@ const PILLAR_TYPE_CONFIG = {
   },
   hour: {
     korean: "시주",
+    navLabel: "말년/자식운",
     english: "HOUR PILLAR",
     badgeTitle: "시주 (HOUR PILLAR): 결실과 심연",
     badgeSubtitle: "인생의 최종적인 결과와 보이지 않는 내면의 잠재력",
@@ -729,11 +733,12 @@ function setupSideNavigation(currentType, context, currentPillar, resultContext)
 
   if (prevType) {
     const prevPillar = normalizedContext[prevType] || currentPillar || "";
-    prevLabel.textContent = PILLAR_TYPE_CONFIG[prevType].korean;
+    const prevConfig = PILLAR_TYPE_CONFIG[prevType];
+    prevLabel.textContent = prevConfig.navLabel ?? prevConfig.korean;
     prevBtn.onclick = () => {
       window.location.href = buildDetailUrl(prevType, prevPillar, normalizedContext, resultContext);
     };
-    prevBtn.setAttribute("aria-label", `${PILLAR_TYPE_CONFIG[prevType].korean} 보기`);
+    prevBtn.setAttribute("aria-label", `${prevConfig.navLabel ?? prevConfig.korean} 보기`);
     prevBtn.classList.remove("hidden");
   } else {
     prevBtn.onclick = null;
@@ -742,11 +747,12 @@ function setupSideNavigation(currentType, context, currentPillar, resultContext)
 
   if (nextType) {
     const nextPillar = normalizedContext[nextType] || currentPillar || "";
-    nextLabel.textContent = PILLAR_TYPE_CONFIG[nextType].korean;
+    const nextConfig = PILLAR_TYPE_CONFIG[nextType];
+    nextLabel.textContent = nextConfig.navLabel ?? nextConfig.korean;
     nextBtn.onclick = () => {
       window.location.href = buildDetailUrl(nextType, nextPillar, normalizedContext, resultContext);
     };
-    nextBtn.setAttribute("aria-label", `${PILLAR_TYPE_CONFIG[nextType].korean} 보기`);
+    nextBtn.setAttribute("aria-label", `${nextConfig.navLabel ?? nextConfig.korean} 보기`);
     nextBtn.classList.remove("hidden");
   } else {
     nextBtn.onclick = null;

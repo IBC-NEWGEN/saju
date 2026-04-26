@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Eul-sa (乙巳) Day Pillar Analysis</title>
+    <title>Ascendia Saju Pillar Analysis</title>
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -56,6 +56,9 @@
             color: #5f5e5e;
             backdrop-filter: blur(6px);
             transition: all 0.2s ease;
+        }
+        .pillar-side-nav.hidden {
+            display: none;
         }
         .pillar-side-nav:hover {
             color: #373831;
@@ -220,10 +223,10 @@
 
     <button id="detail-prev-nav" type="button" class="pillar-side-nav pillar-side-nav-left" aria-label="이전 기둥 보기">
         <span class="material-symbols-outlined text-[20px]">chevron_left</span>
-        <span id="detail-prev-label" class="text-[11px] md:text-sm tracking-wide">시주</span>
+        <span id="detail-prev-label" class="text-[11px] md:text-sm tracking-wide">말년/자식운</span>
     </button>
     <button id="detail-next-nav" type="button" class="pillar-side-nav pillar-side-nav-right" aria-label="다음 기둥 보기">
-        <span id="detail-next-label" class="text-[11px] md:text-sm tracking-wide">월주</span>
+        <span id="detail-next-label" class="text-[11px] md:text-sm tracking-wide">청년/직장운</span>
         <span class="material-symbols-outlined text-[20px]">chevron_right</span>
     </button>
 
@@ -403,6 +406,7 @@
         </div>
     </div>
 
+    <script type="module" src="./src/mobile-scroll-guard.js"></script>
     <script type="module" src="./src/day-pillar-detail.js"></script>
     <script>
         const modal = document.getElementById('cardModal');
@@ -438,7 +442,8 @@
                 modalVideo.classList.add('hidden');
             }
             modalImage.classList.remove('hidden');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.body.style.overflowX = 'hidden';
         }
         
         document.addEventListener('keydown', function(event) {

@@ -3,6 +3,7 @@
 const nameEl = document.getElementById("result-name");
 const subtitleEl = document.getElementById("result-subtitle");
 
+const seasonalSummaryBadgeEl = document.getElementById("result-seasonal-summary-badge");
 const seasonalSummaryTextEl = document.getElementById("result-seasonal-summary-text");
 const seasonalSummaryIconEl = document.getElementById("result-seasonal-summary-icon");
 const elementSummaryEl = document.getElementById("element-summary-text");
@@ -18,6 +19,13 @@ const pillarEls = {
   day: document.getElementById("day-pillar"),
   month: document.getElementById("month-pillar"),
   year: document.getElementById("year-pillar")
+};
+
+const pillarHanjaEls = {
+  hour: document.getElementById("hour-pillar-hanja"),
+  day: document.getElementById("day-pillar-hanja"),
+  month: document.getElementById("month-pillar-hanja"),
+  year: document.getElementById("year-pillar-hanja")
 };
 
 const PILLAR_META = {
@@ -66,6 +74,59 @@ const DAY_STEM_TO_ICON = {
   신: "diamond",
   임: "waves",
   계: "water_drop"
+};
+
+const DAY_STEM_TO_SUMMARY_THEME = {
+  갑: {
+    background: "rgba(47, 111, 78, 0.14)",
+    border: "rgba(47, 111, 78, 0.28)",
+    text: "#2f6f4e"
+  },
+  을: {
+    background: "rgba(47, 111, 78, 0.14)",
+    border: "rgba(47, 111, 78, 0.28)",
+    text: "#2f6f4e"
+  },
+  병: {
+    background: "rgba(255, 218, 214, 0.7)",
+    border: "rgba(194, 34, 37, 0.2)",
+    text: "#c22225"
+  },
+  정: {
+    background: "rgba(255, 218, 214, 0.7)",
+    border: "rgba(194, 34, 37, 0.2)",
+    text: "#c22225"
+  },
+  무: {
+    background: "rgba(218, 166, 37, 0.18)",
+    border: "rgba(185, 126, 13, 0.32)",
+    text: "#8a6500"
+  },
+  기: {
+    background: "rgba(218, 166, 37, 0.18)",
+    border: "rgba(185, 126, 13, 0.32)",
+    text: "#8a6500"
+  },
+  경: {
+    background: "rgba(255, 255, 255, 0.82)",
+    border: "rgba(129, 129, 120, 0.32)",
+    text: "#55585a"
+  },
+  신: {
+    background: "rgba(255, 255, 255, 0.82)",
+    border: "rgba(129, 129, 120, 0.32)",
+    text: "#55585a"
+  },
+  임: {
+    background: "rgba(55, 116, 170, 0.14)",
+    border: "rgba(55, 116, 170, 0.28)",
+    text: "#356d9d"
+  },
+  계: {
+    background: "rgba(55, 116, 170, 0.14)",
+    border: "rgba(55, 116, 170, 0.28)",
+    text: "#356d9d"
+  }
 };
 
 const ELEMENT_KEYS = ["wood", "fire", "earth", "metal", "water"];
@@ -171,6 +232,10 @@ const pillarCards = {
   year: pillarEls.year?.closest("div.relative") ?? null
 };
 const pillarTrackEl = document.querySelector(".pillar-cards-track");
+const pillarCardEntries = Object.entries(pillarCards).filter(([, cardEl]) => Boolean(cardEl));
+const pillarCardsDesktopQuery = window.matchMedia("(min-width: 640px)");
+const DEFAULT_ACTIVE_PILLAR = "day";
+let activePillarSyncFrame = null;
 
 function formatCalendarLabel(calendarType) {
   return calendarType === "lunar" ? "음력 기준" : "양력 기준";
@@ -206,6 +271,21 @@ function getStemAndBranch(pillarHangul) {
   };
 }
 
+function applySeasonalSummaryTheme(dayStem) {
+  const theme = DAY_STEM_TO_SUMMARY_THEME[dayStem] ?? DAY_STEM_TO_SUMMARY_THEME.병;
+
+  if (seasonalSummaryBadgeEl) {
+    seasonalSummaryBadgeEl.style.backgroundColor = theme.background;
+    seasonalSummaryBadgeEl.style.borderColor = theme.border;
+  }
+  if (seasonalSummaryTextEl) {
+    seasonalSummaryTextEl.style.color = theme.text;
+  }
+  if (seasonalSummaryIconEl) {
+    seasonalSummaryIconEl.style.color = theme.text;
+  }
+}
+
 function updateSeasonalSummary(pillars) {
   const day = getStemAndBranch(pillars?.day?.hangul ?? "");
   const month = getStemAndBranch(pillars?.month?.hangul ?? "");
@@ -222,6 +302,8 @@ function updateSeasonalSummary(pillars) {
   if (seasonalSummaryIconEl) {
     seasonalSummaryIconEl.textContent = iconName;
   }
+
+  applySeasonalSummaryTheme(day.stem);
 }
 
 function updateSeasonalSummaryFromCurrentPillars() {
@@ -255,18 +337,164 @@ function applyPillarDescriptionsFromCurrentPillars() {
   });
 }
 
+function isMobilePillarCards() {
+  return !pillarCardsDesktopQuery.matches;
+}
+
+function updatePillarActionLabels() {
+  const label = isMobilePillarCards() ? "터치!" : "클릭!";
+
+  pillarCardEntries.forEach(([, cardEl]) => {
+    const badgeEl = cardEl.querySelector(".pillar-action-badge");
+    if (badgeEl) {
+      badgeEl.textContent = label;
+    }
+  });
+}
+
+function setActivePillarCard(activeKey = DEFAULT_ACTIVE_PILLAR) {
+  const safeActiveKey = pillarCards[activeKey] ? activeKey : DEFAULT_ACTIVE_PILLAR;
+
+  updatePillarActionLabels();
+  pillarCardEntries.forEach(([key, cardEl]) => {
+    cardEl.classList.toggle("is-active", key === safeActiveKey);
+  });
+}
+
+function getCenteredPillarKey() {
+  if (!pillarTrackEl || pillarCardEntries.length === 0) {
+    return DEFAULT_ACTIVE_PILLAR;
+  }
+
+  const trackRect = pillarTrackEl.getBoundingClientRect();
+  const trackCenterX = trackRect.left + trackRect.width / 2;
+  let centeredKey = DEFAULT_ACTIVE_PILLAR;
+  let smallestDistance = Number.POSITIVE_INFINITY;
+
+  pillarCardEntries.forEach(([key, cardEl]) => {
+    const slideEl = cardEl.closest(".pillar-slide");
+    if (!slideEl) {
+      return;
+    }
+
+    const slideRect = slideEl.getBoundingClientRect();
+    const slideCenterX = slideRect.left + slideRect.width / 2;
+    const distance = Math.abs(slideCenterX - trackCenterX);
+
+    if (distance < smallestDistance) {
+      smallestDistance = distance;
+      centeredKey = key;
+    }
+  });
+
+  return centeredKey;
+}
+
+function syncActivePillarCard() {
+  if (isMobilePillarCards()) {
+    setActivePillarCard(getCenteredPillarKey());
+    return;
+  }
+
+  setActivePillarCard(DEFAULT_ACTIVE_PILLAR);
+}
+
+function scheduleActivePillarCardSync() {
+  if (activePillarSyncFrame !== null) {
+    return;
+  }
+
+  activePillarSyncFrame = window.requestAnimationFrame(() => {
+    activePillarSyncFrame = null;
+    syncActivePillarCard();
+  });
+}
+
+function setupPillarCardHighlights() {
+  setActivePillarCard(DEFAULT_ACTIVE_PILLAR);
+
+  pillarCardEntries.forEach(([key, cardEl]) => {
+    cardEl.addEventListener("mouseenter", () => {
+      if (!isMobilePillarCards()) {
+        setActivePillarCard(key);
+      }
+    });
+
+    cardEl.addEventListener("focusin", () => {
+      if (!isMobilePillarCards()) {
+        setActivePillarCard(key);
+      }
+    });
+
+    cardEl.addEventListener("focusout", () => {
+      window.setTimeout(() => {
+        if (isMobilePillarCards()) {
+          return;
+        }
+
+        const focusInsideCards = pillarCardEntries.some(([, entryCardEl]) =>
+          entryCardEl.contains(document.activeElement)
+        );
+        if (!focusInsideCards) {
+          setActivePillarCard(DEFAULT_ACTIVE_PILLAR);
+        }
+      }, 0);
+    });
+  });
+
+  if (pillarTrackEl) {
+    pillarTrackEl.addEventListener(
+      "scroll",
+      () => {
+        if (isMobilePillarCards()) {
+          scheduleActivePillarCardSync();
+        }
+      },
+      { passive: true }
+    );
+
+    pillarTrackEl.addEventListener("mouseleave", () => {
+      if (!isMobilePillarCards()) {
+        setActivePillarCard(DEFAULT_ACTIVE_PILLAR);
+      }
+    });
+  }
+
+  const onViewportModeChange = () => {
+    scheduleActivePillarCardSync();
+  };
+
+  if (typeof pillarCardsDesktopQuery.addEventListener === "function") {
+    pillarCardsDesktopQuery.addEventListener("change", onViewportModeChange);
+  } else if (typeof pillarCardsDesktopQuery.addListener === "function") {
+    pillarCardsDesktopQuery.addListener(onViewportModeChange);
+  }
+}
+
 function applyPillars(pillars) {
   if (pillarEls.hour) {
     pillarEls.hour.textContent = pillars.hour.hangul;
   }
+  if (pillarHanjaEls.hour) {
+    pillarHanjaEls.hour.textContent = pillars.hour.hanja;
+  }
   if (pillarEls.day) {
     pillarEls.day.textContent = pillars.day.hangul;
+  }
+  if (pillarHanjaEls.day) {
+    pillarHanjaEls.day.textContent = pillars.day.hanja;
   }
   if (pillarEls.month) {
     pillarEls.month.textContent = pillars.month.hangul;
   }
+  if (pillarHanjaEls.month) {
+    pillarHanjaEls.month.textContent = pillars.month.hanja;
+  }
   if (pillarEls.year) {
     pillarEls.year.textContent = pillars.year.hangul;
+  }
+  if (pillarHanjaEls.year) {
+    pillarHanjaEls.year.textContent = pillars.year.hanja;
   }
 }
 
@@ -773,6 +1001,7 @@ async function loadResult() {
     updatePillarNavigation();
     requestAnimationFrame(() => {
       focusDayCardOnMobile();
+      syncActivePillarCard();
       playInitialSwipeHint();
     });
     return;
@@ -798,6 +1027,7 @@ async function loadResult() {
     updatePillarNavigation();
     requestAnimationFrame(() => {
       focusDayCardOnMobile();
+      syncActivePillarCard();
       playInitialSwipeHint();
     });
 
@@ -819,12 +1049,14 @@ async function loadResult() {
     updatePillarNavigation();
     requestAnimationFrame(() => {
       focusDayCardOnMobile();
+      syncActivePillarCard();
       playInitialSwipeHint();
     });
   }
 }
 
 bindPillarNavigation();
+setupPillarCardHighlights();
 updateSeasonalSummaryFromCurrentPillars();
 applyPillarDescriptionsFromCurrentPillars();
 applyElementSummary(readElementCountsFromDom());

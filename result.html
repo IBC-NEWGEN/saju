@@ -52,6 +52,49 @@
             width: 100%;
             aspect-ratio: 3 / 4;
             min-height: 18.75rem;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .pillar-card-frame.is-active {
+            z-index: 20;
+            border-color: rgba(194, 34, 37, 0.72);
+            box-shadow: 0 18px 40px rgba(194, 34, 37, 0.16);
+        }
+
+        .pillar-action-badge {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -0.25rem) scale(0.96);
+            transition:
+                opacity 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        .pillar-card-frame.is-active .pillar-action-badge {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+        }
+
+        .pillar-card-kicker,
+        .pillar-card-title,
+        .pillar-card-hanja,
+        .pillar-card-description {
+            transition:
+                color 0.2s ease,
+                font-weight 0.2s ease;
+        }
+
+        .pillar-card-frame.is-active .pillar-card-kicker,
+        .pillar-card-frame.is-active .pillar-card-title,
+        .pillar-card-frame.is-active .pillar-card-hanja {
+            color: #c22225;
+        }
+
+        .pillar-card-frame.is-active .pillar-card-description {
+            font-weight: 500;
         }
 
         .pillar-section-title {
@@ -230,7 +273,7 @@
         <section class="mb-10 md:mb-14 text-center mt-1 md:mt-7">
             <h1 id="result-name" class="font-headline font-bold text-[2.35rem] md:text-6xl text-on-surface mb-2.5 md:mb-2 tracking-tight">김동한</h1>
             <p id="result-subtitle" class="font-headline text-[1.04rem] md:text-2xl text-primary mb-4 md:mb-6">金東漢</p>
-            <div class="inline-flex items-center gap-2 bg-secondary-container/70 px-3.5 py-2 rounded-full border border-secondary/20 shadow-sm">
+            <div id="result-seasonal-summary-badge" class="inline-flex items-center gap-2 bg-secondary-container/70 px-3.5 py-2 rounded-full border border-secondary/20 shadow-sm">
                 <span id="result-seasonal-summary-icon" class="material-symbols-outlined text-base text-secondary">local_florist</span>
                 <span id="result-seasonal-summary-text" class="text-[13px] md:text-base font-headline text-secondary tracking-wide md:tracking-widest font-bold">초겨울에 피어난 꽃</span>
             </div>
@@ -244,53 +287,56 @@
 
                 <article class="pillar-slide" data-pillar="hour">
                     <div class="pillar-card-frame relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-outline-variant/20 bg-surface-container-low">
+                        <div class="pillar-action-badge absolute top-4 left-1/2 bg-secondary text-on-secondary text-[10px] tracking-widest px-3 py-1 rounded-full whitespace-nowrap z-20 font-bold font-headline shadow-sm">클릭!</div>
                         <img alt="Hour Pillar" data-pillar-image="hour" class="absolute inset-0 h-full w-full object-contain object-center"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/40 to-surface/10"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end text-center">
-                            <span class="text-xs font-headline text-primary tracking-widest block mb-2">나의 지향 (Hour)</span>
-                            <h3 id="hour-pillar" class="font-headline text-3xl text-on-surface mb-1">정축</h3>
-                            <span class="text-sm text-on-surface-variant font-headline block mb-4">丁丑</span>
-                            <p id="hour-pillar-description" class="text-[13px] text-primary font-headline leading-relaxed px-2">얼어붙은 땅을 녹여내는 모닥불</p>
+                            <span class="pillar-card-kicker text-xs font-headline text-primary tracking-widest block mb-2">나의 지향 (Hour)</span>
+                            <h3 id="hour-pillar" class="pillar-card-title font-headline text-3xl text-on-surface mb-1">정축</h3>
+                            <span id="hour-pillar-hanja" class="pillar-card-hanja text-sm text-on-surface-variant font-headline block mb-4">丁丑</span>
+                            <p id="hour-pillar-description" class="pillar-card-description text-[13px] text-primary font-headline leading-relaxed px-2">얼어붙은 땅을 녹여내는 모닥불</p>
                         </div>
                     </div>
                 </article>
 
                 <article class="pillar-slide" data-pillar="day">
-                    <div id="day-pillar-card" class="pillar-card-frame relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-secondary/30 bg-surface-container-low z-10">
-                        <div class="absolute top-4 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary text-[10px] tracking-widest px-3 py-1 rounded-full whitespace-nowrap z-20 font-bold font-headline shadow-sm">일주(본인)</div>
+                    <div id="day-pillar-card" class="pillar-card-frame relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-outline-variant/20 bg-surface-container-low">
+                        <div class="pillar-action-badge absolute top-4 left-1/2 bg-secondary text-on-secondary text-[10px] tracking-widest px-3 py-1 rounded-full whitespace-nowrap z-20 font-bold font-headline shadow-sm">클릭!</div>
                         <img alt="Day Pillar" data-pillar-image="day" class="absolute inset-0 h-full w-full object-contain object-center"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/40 to-surface/10"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end text-center">
-                            <span class="text-xs font-headline text-secondary tracking-widest block mb-2">나의 기질 (Day)</span>
-                            <h3 id="day-pillar" class="font-headline text-3xl text-secondary mb-1">을사</h3>
-                            <span class="text-sm text-secondary/80 font-headline block mb-4">乙巳</span>
-                            <p id="day-pillar-description" class="text-[13px] text-primary font-headline leading-relaxed px-2 font-medium">태양 아래 선명하게 피어난 화사한 꽃</p>
+                            <span class="pillar-card-kicker text-xs font-headline text-primary tracking-widest block mb-2">나의 기질 (Day)</span>
+                            <h3 id="day-pillar" class="pillar-card-title font-headline text-3xl text-on-surface mb-1">을사</h3>
+                            <span id="day-pillar-hanja" class="pillar-card-hanja text-sm text-on-surface-variant font-headline block mb-4">乙巳</span>
+                            <p id="day-pillar-description" class="pillar-card-description text-[13px] text-primary font-headline leading-relaxed px-2">태양 아래 선명하게 피어난 화사한 꽃</p>
                         </div>
                     </div>
                 </article>
 
                 <article class="pillar-slide" data-pillar="month">
                     <div class="pillar-card-frame relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-outline-variant/20 bg-surface-container-low">
+                        <div class="pillar-action-badge absolute top-4 left-1/2 bg-secondary text-on-secondary text-[10px] tracking-widest px-3 py-1 rounded-full whitespace-nowrap z-20 font-bold font-headline shadow-sm">클릭!</div>
                         <img alt="Month Pillar" data-pillar-image="month" class="absolute inset-0 h-full w-full object-contain object-center"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/40 to-surface/10"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end text-center">
-                            <span class="text-xs font-headline text-primary tracking-widest block mb-2">나의 환경 (Month)</span>
-                            <h3 id="month-pillar" class="font-headline text-3xl text-on-surface mb-1">계해</h3>
-                            <span class="text-sm text-on-surface-variant font-headline block mb-4">癸亥</span>
-                            <p id="month-pillar-description" class="text-[13px] text-primary font-headline leading-relaxed px-2">끝 없이 펼쳐진 바다에 내리는 세찬 빗줄기</p>
+                            <span class="pillar-card-kicker text-xs font-headline text-primary tracking-widest block mb-2">나의 환경 (Month)</span>
+                            <h3 id="month-pillar" class="pillar-card-title font-headline text-3xl text-on-surface mb-1">계해</h3>
+                            <span id="month-pillar-hanja" class="pillar-card-hanja text-sm text-on-surface-variant font-headline block mb-4">癸亥</span>
+                            <p id="month-pillar-description" class="pillar-card-description text-[13px] text-primary font-headline leading-relaxed px-2">끝 없이 펼쳐진 바다에 내리는 세찬 빗줄기</p>
                         </div>
                     </div>
                 </article>
 
                 <article class="pillar-slide" data-pillar="year">
                     <div class="pillar-card-frame relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-outline-variant/20 bg-surface-container-low">
+                        <div class="pillar-action-badge absolute top-4 left-1/2 bg-secondary text-on-secondary text-[10px] tracking-widest px-3 py-1 rounded-full whitespace-nowrap z-20 font-bold font-headline shadow-sm">클릭!</div>
                         <img alt="Year Pillar" data-pillar-image="year" class="absolute inset-0 h-full w-full object-contain object-center"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/40 to-surface/10"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end text-center">
-                            <span class="text-xs font-headline text-primary tracking-widest block mb-2">나의 기원 (Year)</span>
-                            <h3 id="year-pillar" class="font-headline text-3xl text-on-surface mb-1">계유</h3>
-                            <span class="text-sm text-on-surface-variant font-headline block mb-4">癸酉</span>
-                            <p id="year-pillar-description" class="text-[13px] text-primary font-headline leading-relaxed px-2">수정잔 안에 담긴 반짝이는 고운 이슬</p>
+                            <span class="pillar-card-kicker text-xs font-headline text-primary tracking-widest block mb-2">나의 기원 (Year)</span>
+                            <h3 id="year-pillar" class="pillar-card-title font-headline text-3xl text-on-surface mb-1">계유</h3>
+                            <span id="year-pillar-hanja" class="pillar-card-hanja text-sm text-on-surface-variant font-headline block mb-4">癸酉</span>
+                            <p id="year-pillar-description" class="pillar-card-description text-[13px] text-primary font-headline leading-relaxed px-2">수정잔 안에 담긴 반짝이는 고운 이슬</p>
                         </div>
                     </div>
                 </article>
@@ -352,6 +398,7 @@
         </section>
     </main>
 
+    <script type="module" src="./src/mobile-scroll-guard.js"></script>
     <script type="module" src="./src/saju-result.js"></script>
 </body>
 </html>
