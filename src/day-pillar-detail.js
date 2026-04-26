@@ -537,42 +537,35 @@ function renderAdvice(section) {
   setText("detail-advice-text", `"${formatted}"`);
 }
 
+function setImageSource(imageEl, imagePath, altText) {
+  if (!imageEl) {
+    return;
+  }
+
+  if (!imagePath) {
+    imageEl.removeAttribute("src");
+    imageEl.style.display = "none";
+    return;
+  }
+
+  imageEl.style.display = "";
+  imageEl.alt = altText;
+  imageEl.onerror = () => {
+    imageEl.removeAttribute("src");
+    imageEl.style.display = "none";
+  };
+  imageEl.src = imagePath;
+}
+
 function applyCardImages(pillarHangul, pillarTypeKorean) {
-  const imagePath = pillarHangul ? `./images/${pillarHangul}.png` : "";
+  const imagePath = pillarHangul ? `./images-webp/${pillarHangul}.webp` : "";
   const videoPath = pillarHangul ? `./videos/${pillarHangul}.mp4` : "";
   const cardImage = document.getElementById("detail-card-image");
   const modalImage = document.getElementById("detail-modal-image");
   const modalVideo = document.getElementById("detail-modal-video");
 
-  if (cardImage) {
-    if (imagePath) {
-      cardImage.style.display = "";
-      cardImage.src = imagePath;
-      cardImage.alt = `${pillarTypeKorean} 카드`;
-      cardImage.onerror = () => {
-        cardImage.removeAttribute("src");
-        cardImage.style.display = "none";
-      };
-    } else {
-      cardImage.removeAttribute("src");
-      cardImage.style.display = "none";
-    }
-  }
-
-  if (modalImage) {
-    if (imagePath) {
-      modalImage.style.display = "";
-      modalImage.src = imagePath;
-      modalImage.alt = `${pillarTypeKorean} 카드 확대`;
-      modalImage.onerror = () => {
-        modalImage.removeAttribute("src");
-        modalImage.style.display = "none";
-      };
-    } else {
-      modalImage.removeAttribute("src");
-      modalImage.style.display = "none";
-    }
-  }
+  setImageSource(cardImage, imagePath, `${pillarTypeKorean} 카드`);
+  setImageSource(modalImage, imagePath, `${pillarTypeKorean} 카드 확대`);
 
   if (modalVideo) {
     modalVideo.dataset.ready = "false";

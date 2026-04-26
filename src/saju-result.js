@@ -614,11 +614,11 @@ function applyPillarImages() {
       return;
     }
 
-    const imagePath = `./images/${pillar}.png`;
+    const imagePath = `./images-webp/${pillar}.webp`;
     const probe = new Image();
 
     probe.onload = () => {
-      imgEl.src = imagePath;
+      imgEl.src = probe.src;
       imgEl.style.display = "";
     };
 
